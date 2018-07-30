@@ -1,0 +1,15 @@
+Package: lazytex
+Type: Package
+Title: Presenting Models in LaTex Equation Format
+Version: 0.0.0.9000
+Authors@R: person("Fin", "Yang", email = "Fin.Yang@monash.edu",
+                  role = c("aut", "cre"))
+Description: The package intends to transfer a regression model into latex math 
+    format, which can be copied and pasted in rmarkdown or latex complier to 
+    produce equation. Currently the package only applies to linear regression.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Imports:
+    tidyverse
+RoxygenNote: 6.0.1
