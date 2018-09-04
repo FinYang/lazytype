@@ -8,6 +8,7 @@
 #' @examples
 #' model <- lm(Murder ~ Assault + UrbanPop + Rape, USArrests)
 #' lazy.lm(model)
+#' @importFrom magrittr %>%
 lazy.lm <- function(model, digits = 2){
   b<- model$coefficients %>% round(digits = digits)
   a<- summary(model)$coefficients[, 2] %>% round(digits = digits)
