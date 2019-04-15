@@ -1,3 +1,4 @@
+#' @export
 dont_sign_me_out <- function(hours = 3.5){
   for(i in 1:(12*hours)){
     Sys.sleep(300)
