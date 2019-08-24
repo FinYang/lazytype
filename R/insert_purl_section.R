@@ -30,8 +30,14 @@ insert_purl_section <- function(){
     }
   } else {
     #not purl section
-    label_line <- paste0("## ---- ", line, " ",  strrep("-", 65-nchar(line)))
-    rstudioapi::modifyRange(c(row_number, 1, row_number, nchar(line)+1), text = paste0(label_line, "\n\n"))
+    if(nchar(line) < 75){
+      label_line <- paste0("## ---- ", line, " ",  strrep("-", 65-nchar(line)))
+      rstudioapi::modifyRange(c(row_number, 1, row_number, nchar(line)+1), text = paste0(label_line, "\n\n"))
+    } else {
+      rstudioapi::insertText(c(row_number, 1), text = "## ---- ")
+      rstudioapi::insertText(c(row_number, nchar(line)+9), text = "\n\n")
+
+    }
   }
 
 }
