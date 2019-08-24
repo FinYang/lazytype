@@ -29,11 +29,9 @@ insert_purl_section <- function(){
     rstudioapi::modifyRange(c(row_number, 1, row_number, nchar(line)+1), text = paste0(label_line, "\n\n"))
 
   } else {
-    newline <- sub("^## ----", "", line)
-    if(substr(newline, 1L, 1L) == " ") newline <- substr(newline, 2, nchar(newline))
-    newline <- gsub("----$", "", newline)
-    if(substr(newline, nchar(newline), nchar(newline)) == " ") newline <- substr(newline, 1, nchar(newline)-1)
-    rst/nudioapi::modifyRange(c(row_number, 1, row_number, nchar(line)+1), text = newline)
+    newline <- sub("^## ----* ", "", line)
+    newline <- sub(" *---- *$", "", newline)
+    rstudioapi::modifyRange(c(row_number, 1, row_number, nchar(line)+1), text = newline)
   }
 }
 
