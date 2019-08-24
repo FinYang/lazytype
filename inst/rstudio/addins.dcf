@@ -3,3 +3,7 @@ Description: Insert Purl Section
 Binding: insert_purl_section
 Interactive: false
 
+Name: Insert Rmarkdown Chunk (Edit Label)
+Description: Insert Rmarkdown Chunk with cursor placed at the label
+Binding: insert_rmarkdown_chunk_editlabel
+Interactive: false
