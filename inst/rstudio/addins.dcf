@@ -7,3 +7,8 @@ Name: Insert Rmarkdown Chunk (Edit Label)
 Description: Insert Rmarkdown Chunk with cursor placed at the label
 Binding: insert_rmarkdown_chunk_editlabel
 Interactive: false
+
+Name: Insert Scoping Assignment Operator
+Description: Insert Scoping Assignment Operator
+Binding: insert_scoping_assignment
+Interactive: false
