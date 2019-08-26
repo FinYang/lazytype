@@ -16,3 +16,8 @@ dont_sign_me_out <- function(hours = 3.5){
     flush.console()
   }
 }
+
+#' @export
+run_ovrenight <- function(){
+  dont_sign_me_out(hours = 24)
+}
