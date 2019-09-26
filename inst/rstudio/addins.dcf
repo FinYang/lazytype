@@ -12,3 +12,8 @@ Name: Insert Scoping Assignment Operator
 Description: Insert Scoping Assignment Operator
 Binding: insert_scoping_assignment
 Interactive: false
+
+Name: Run Selected Arguments
+Description: Run Highlighted Default Arguments in a Function
+Binding: run_selected_arguments
+Interactive: true

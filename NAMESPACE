@@ -2,4 +2,8 @@
 
 export(dont_sign_me_out)
 export(insert_purl_section)
+export(insert_rmarkdown_chunk_editlabel)
+export(insert_scoping_assignment)
 export(no_purl_dialogue)
+export(run_ovrenight)
+export(run_selected_arguments)
