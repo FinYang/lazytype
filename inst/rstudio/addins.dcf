@@ -17,3 +17,8 @@ Name: Run Selected Arguments
 Description: Run Highlighted Default Arguments in a Function
 Binding: run_selected_arguments
 Interactive: true
+
+Name: Run All up to Cursor
+Description: Run All code in the current script up to the current line
+Binding: run_all_to_cursor
+Interactive: true
