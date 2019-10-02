@@ -2,6 +2,10 @@
 #' @export
 run_selected_arguments <- function(){
   context <- rstudioapi::getActiveDocumentContext()
+  # return()
+  if('#console' %in% context$id){
+    message("Cursor at console.")
+  }
   # print(context)
   text <- context$selection[[1]]$text
   # code <-
@@ -15,16 +19,16 @@ run_selected_arguments <- function(){
       singleright <- which(singlepa & rightpa)
       if(!length(singleleft) && length(singleright))
         stop("Parentheses do not match. Check arguments in the highlighted area.")
-      para_poi <- mapply(function(a, b) a:b, a=singleleft, b=singleright)
+      para_poi <- mapply(function(a, b) a:b, a=singleleft, b=singleright, SIMPLIFY = FALSE)
       code_long <- sapply(para_poi, function(i) paste(code[i], collapse = ","))
       code_short <- code[-c(do.call(base::c, para_poi))]
-      out_code <- c(code_long, code_short)
+      code <- c(code_long, code_short)
       # code[singleleft] <- paste(code[singleleft], code[singleright], sep = ",")
       # code <- code[-singleright]
     }
   }
-  out_code <- out_code[-c(grep("=", out_code, invert = TRUE))]
-  eval(parse(text = out_code), globalenv())
+  code <- code[-c(grep("=", code, invert = TRUE))]
+  invisible(eval(parse(text = code), globalenv()))
 
   # code_run <- gsub(",", ";", code)
   # try(force(code_run))
