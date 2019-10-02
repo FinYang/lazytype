@@ -13,7 +13,7 @@ run_selected_arguments <- function(){
     singleleft <- which(singlepa & leftpa)
     if(length(singleleft)!=0){
       singleright <- which(singlepa & rightpa)
-      if(length(singleleft) && length(singleright))
+      if(!length(singleleft) && length(singleright))
         stop("Parentheses do not match. Check arguments in the highlighted area.")
       para_poi <- mapply(function(a, b) a:b, a=singleleft, b=singleright)
       code_long <- sapply(para_poi, function(i) paste(code[i], collapse = ","))
