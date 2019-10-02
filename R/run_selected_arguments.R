@@ -2,12 +2,15 @@
 #' @export
 run_selected_arguments <- function(){
   context <- rstudioapi::getActiveDocumentContext()
-  # return()
+  # context <<- rstudioapi::getActiveDocumentContext()
+  # return(invisible("1"))
   if('#console' %in% context$id){
-    message("Cursor at console.")
+    message("Cursor at console")
+    text <- context$contents
+  } else {
+    text <- context$selection[[1]]$text
   }
   # print(context)
-  text <- context$selection[[1]]$text
   # code <-
   code <- strsplit(gsub("\n", "", text), ",")[[1]]
   leftpa <- grepl("\\(", code)
@@ -27,9 +30,11 @@ run_selected_arguments <- function(){
       # code <- code[-singleright]
     }
   }
-  code <- code[-c(grep("=", code, invert = TRUE))]
-  invisible(eval(parse(text = code), globalenv()))
-
+  if(length(c(grep("=", code, invert = TRUE))) !=0)
+    code <- code[-c(grep("=", code, invert = TRUE))]
+  if(length(code) == 0)
+    message("No assignment input")
+  tmp <- capture.output(eval(parse(text = code), globalenv()))
   # code_run <- gsub(",", ";", code)
   # try(force(code_run))
 }
