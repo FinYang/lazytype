@@ -9,13 +9,16 @@ License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    rMouse, 
-    magrittr, 
+    rMouse,
+    xfun,
+    magrittr,
+    R6,
+    knitr,
     rstudioapi(>= 0.5)
 RoxygenNote: 6.1.1
 URL: https://github.com/FinYang/lazytex
 BugReports: https://github.com/FinYang/lazytex/issues
-Suggests: knitr,
+Suggests: 
     rmarkdown,
     testthat
 VignetteBuilder: knitr
