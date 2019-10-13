@@ -2,6 +2,7 @@
 
 export("%run%")
 export(LazyScript)
+export(copy_script_to_rmd)
 export(dont_sign_me_out)
 export(insert_purl_section)
 export(insert_rmarkdown_chunk_editlabel)
