@@ -1,3 +1,7 @@
+#' Move mouse every 5 minutes
+#'
+#'
+#'
 #' @export
 dont_sign_me_out <- function(hours = 3.5){
   hour <- 0

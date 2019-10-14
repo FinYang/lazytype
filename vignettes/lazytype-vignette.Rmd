@@ -1,5 +1,5 @@
 ---
-title: "lazytex"
+title: "lazytype"
 author: "Fin Yang"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
