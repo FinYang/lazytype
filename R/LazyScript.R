@@ -33,8 +33,9 @@ LazyScript <- R6::R6Class("LazyScript", public = list(
     cat("  List of sections: ", paste(names(self$script), collapse = ", "), "\n", sep = "")
     invisible(self)
   },
-  run = function(name){
-    eval(parse(text = self$script[[name]]))
+  run = function(name, envir = globalenv()){
+    if(!name %in% names(self$script)) stop("Chunk not found in the script.")
+    eval(parse(text = self$script[[name]]), envir = envir)
     invisible(self)
   }
 
