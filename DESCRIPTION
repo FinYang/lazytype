@@ -2,10 +2,10 @@ Package: lazytype
 Type: Package
 Title: Functions and Addins to save keystrokes and clicks 
 Version: 0.0.0.9000
-Authors@R: person("Fin", "Yang", email = "Fin.Yang@monash.edu",
-                  role = c("aut", "cre"))
+Authors@R: person("Yangzhuoran", "Yang", email = "Fin.Yang@monash.edu",
+                  role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1232-8017"))
 Description: The package contains various functions and addins to facilitate a simpler coding and testing process.
-License: What license is it under?
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports: 

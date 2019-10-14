@@ -1,0 +1,9 @@
+destination: docs
+template:
+  params:
+    ganalytics: UA-129140417-1
+
+authors:
+  Yangzhuoran Yang:
+    href: https://yangzhuoranyang.com
+

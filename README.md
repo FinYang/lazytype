@@ -74,7 +74,7 @@ copy_script_to_rmd("test.R", "test.Rmd", match_chunk = FALSE)
 In the `test.Rmd` file, after the existing text, the code in `test.R`
 will be appended to the end in the following form.
 
-![](vignettes/test.png)<!-- -->
+![](man/figures/test.png)<!-- -->
 
 ### Addins
 

@@ -1,4 +1,3 @@
-
 #' @export
 LazyScript <- R6::R6Class("LazyScript", public = list(
   path = character(),

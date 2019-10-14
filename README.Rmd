@@ -84,7 +84,7 @@ In the `test.Rmd` file, after the existing text, the code in `test.R` will be ap
 
 
 ```{r echo = FALSE}
-knitr::include_graphics("vignettes/test.png")
+knitr::include_graphics("man/figures/test.png")
 ```
 
 
