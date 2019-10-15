@@ -1,11 +1,12 @@
-#' Insert Scoping Assignment Operator
+#' Insert LazyScript Run Operator
 #'
-#' \code{insert_scoping_assignment} insert \code{<<-} at cursor. Binding to \code{Alt+=} is suggested.
+#' \code{insert_run_operator} insert \code{\%run\%} at cursor. Binding to \code{Alt+,} is suggested.
 #'
 #' @author Yangzhuoran Yang
-#' @seealso \code{assignOps}
+#' @seealso \code{\%run\%}, \code{LazyScript}
 #' @export
-insert_scoping_assignment <- function(){
+insert_run_operator <- function(){
+
   context <<- rstudioapi::getActiveDocumentContext()
 
   start <- c(context$selection[[1]]$range$start)
@@ -16,7 +17,6 @@ insert_scoping_assignment <- function(){
   if(substr((context$contents[[end[[1]]]]), end[[2]], end[[2]])==" ")
     end[[2]] <- end[[2]]+1
 
-  rstudioapi::modifyRange(c(start, end), text = " <<- ")
+  rstudioapi::modifyRange(c(start, end), text = " %run% ")
 
 }
-

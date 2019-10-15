@@ -11,7 +11,7 @@
 #'
 #' @name LazyScript
 #' @author Yangzhuoran Yang
-#' @seealso \code{knitr::read_chunk}, \code{insert_purl_section}
+#' @seealso \code{knitr::read_chunk}, \code{insert_purl_section}, \code{insert_run_operator}
 #' @examples
 #' \dontrun{
 #' test_script <- read_script("test.R")
@@ -79,6 +79,7 @@ read_script <- function(script_path, library = TRUE){
 #' @param lazy_script A LazyScript object.
 #' @param chunk_name String. The label of the chunk in the script that you want to run.
 #' @describeIn LazyScript Run the chunk in the LazyScript object based on the specified label.
+#' Addin \code{insert_run_operator} can be used to insert it.
 #' Note: use \code{print} explicitly in the script to print result in the console.
 #' @export
 `%run%` <- function(LazyScript, chunk_name){

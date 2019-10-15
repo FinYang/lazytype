@@ -26,6 +26,7 @@ reference:
 - title: Addins
   desc: ~
   contents:
+  - '`insert_run_operator`'
   - '`insert_purl_section`'
   - '`insert_rmarkdown_chunk_editlabel`'
   - '`insert_scoping_assignment`'

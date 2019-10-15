@@ -50,6 +50,7 @@ Similar to \code{knitr::read_chunk} but in the context of script. Use purl heade
 \code{## ----} to set labels in the script.
 
 \item \code{\%run\%}: Run the chunk in the LazyScript object based on the specified label.
+Addin \code{insert_run_operator} can be used to insert it.
 Note: use \code{print} explicitly in the script to print result in the console.
 
 \item \code{copy_script_to_rmd}: Copy the code in the script to the rmarkdown file based on the chunk label (when \code{match_chunk = TRUE}),
@@ -67,7 +68,7 @@ copy_script_to_rmd("test.R", "test.Rmd")
 }
 }
 \seealso{
-\code{knitr::read_chunk}, \code{insert_purl_section}
+\code{knitr::read_chunk}, \code{insert_purl_section}, \code{insert_run_operator}
 }
 \author{
 Yangzhuoran Yang

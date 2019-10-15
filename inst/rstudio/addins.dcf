@@ -13,6 +13,11 @@ Description: Insert Scoping Assignment Operator
 Binding: insert_scoping_assignment
 Interactive: false
 
+Name: Insert LazyScript Run Operator
+Description: Insert LazyScript Run Operator
+Binding: insert_run_operator
+Interactive: false
+
 Name: Run Selected Arguments
 Description: Run Highlighted Default Arguments in a Function
 Binding: run_selected_arguments

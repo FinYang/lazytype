@@ -50,7 +50,7 @@ insert_purl_section <- function(){
 #' @param dialogue Logical. Whether trigger a dialogue when input label.
 #' @export
 purl_dialogue <- function(dialogue = TRUE){
-  if(!nodialogue && .Platform$OS.type!="windows"){
+  if(dialogue && .Platform$OS.type!="windows"){
     stop("lazytex: insert_purl_section currently only support windows dialogue")
   }
   options(purl_dialogue = dialogue)
