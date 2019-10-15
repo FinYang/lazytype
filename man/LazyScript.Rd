@@ -34,16 +34,23 @@ make the copy to the corresponding chunks If FALSE, the chunks are appended to t
 A LazyScript object
 }
 \description{
-The \code{LazyScript} series provides functions that can copy/run code between script and rmd files.
+The \code{LazyScript} serie provides functions that can copy/run code between script and rmd files.
 \code{LazyScript} is a R6 class, but the functions here provides means for user to use \code{LazyScript} instead of
 handling the R6 system. See functions below for detailed usage. See \url{http://pkg.yangzhuoranyang.com/lazytype/} for more documentations.
 }
+\details{
+The \code{LazyScript} serie generally depends on the prul header \code{## ----} to seperate the sections in the script.
+See \code{insert_purl_section} for addin to insert this header quickly. It is also the head that \code{knitr::read_chunk}
+uses to regonise chunks.
+}
 \section{Functions}{
 \itemize{
-\item \code{read_script}: Read in script and store them in a LazyScript object. Similar to \code{knitr::read_chunk} but in the context of script
+\item \code{read_script}: Read in script and store them in a LazyScript object.
+Similar to \code{knitr::read_chunk} but in the context of script. Use purl header
+\code{## ----} to set labels in the script.
 
 \item \code{\%run\%}: Run the chunk in the LazyScript object based on the specified label.
-Note: use print explicitly in the script to print result in the console.
+Note: use \code{print} explicitly in the script to print result in the console.
 
 \item \code{copy_script_to_rmd}: Copy the code in the script to the rmarkdown file based on the chunk label (when \code{match_chunk = TRUE}),
 or append the code to the end.
@@ -58,6 +65,9 @@ test_script \%run\% "hello"
 copy_script_to_rmd("test.R", "test.Rmd")
 
 }
+}
+\seealso{
+\code{knitr::read_chunk}, \code{insert_purl_section}
 }
 \author{
 Yangzhuoran Yang

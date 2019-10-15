@@ -1,14 +1,17 @@
 #' Interact between scripts, and rmarkdown files
 #'
-#' The \code{LazyScript} series provides functions that can copy/run code between script and rmd files.
+#' The \code{LazyScript} serie provides functions that can copy/run code between script and rmd files.
 #' \code{LazyScript} is a R6 class, but the functions here provides means for user to use \code{LazyScript} instead of
 #' handling the R6 system. See functions below for detailed usage. See \url{http://pkg.yangzhuoranyang.com/lazytype/} for more documentations.
 #'
+#' The \code{LazyScript} serie generally depends on the prul header \code{## ----} to seperate the sections in the script.
+#' See \code{insert_purl_section} for addin to insert this header quickly. It is also the head that \code{knitr::read_chunk}
+#' uses to regonise chunks.
 #'
 #'
 #' @name LazyScript
 #' @author Yangzhuoran Yang
-#'
+#' @seealso \code{knitr::read_chunk}, \code{insert_purl_section}
 #' @examples
 #' \dontrun{
 #' test_script <- read_script("test.R")
@@ -64,7 +67,9 @@ LazyScript <- R6::R6Class("LazyScript", public = list(
 #' @param script_path String. The path to the script.
 #' @param library Logical. Whether the library chunk (if there is one in the script) is ran when read in the script
 #' @return A LazyScript object
-#' @describeIn  LazyScript Read in script and store them in a LazyScript object. Similar to \code{knitr::read_chunk} but in the context of script
+#' @describeIn  LazyScript Read in script and store them in a LazyScript object.
+#' Similar to \code{knitr::read_chunk} but in the context of script. Use purl header
+#' \code{## ----} to set labels in the script.
 #' @export
 read_script <- function(script_path, library = TRUE){
   LazyScript$new(script_path, library)
@@ -74,7 +79,7 @@ read_script <- function(script_path, library = TRUE){
 #' @param lazy_script A LazyScript object.
 #' @param chunk_name String. The label of the chunk in the script that you want to run.
 #' @describeIn LazyScript Run the chunk in the LazyScript object based on the specified label.
-#' Note: use print explicitly in the script to print result in the console.
+#' Note: use \code{print} explicitly in the script to print result in the console.
 #' @export
 `%run%` <- function(LazyScript, chunk_name){
   LazyScript$run(chunk_name)

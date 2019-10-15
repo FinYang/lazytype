@@ -24,9 +24,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -34,9 +33,11 @@
 
 
 
+  <link href="../extra.css" rel="stylesheet">
+  
 
 <meta property="og:title" content="Interact between scripts, and rmarkdown files — LazyScript" />
-<meta property="og:description" content="The LazyScript series provides functions that can copy/run code between script and rmd files.
+<meta property="og:description" content="The LazyScript serie provides functions that can copy/run code between script and rmd files.
 LazyScript is a R6 class, but the functions here provides means for user to use LazyScript instead of
 handling the R6 system. See functions below for detailed usage. See http://pkg.yangzhuoranyang.com/lazytype/ for more documentations." />
 <meta name="twitter:card" content="summary" />
@@ -63,7 +64,6 @@ handling the R6 system. See functions below for detailed usage. See http://pkg.y
 
   gtag('config', 'UA-129140417-1');
 </script>
-
 
   </head>
 
@@ -114,7 +114,6 @@ handling the R6 system. See functions below for detailed usage. See http://pkg.y
 </div><!--/.navbar -->
 
       
-
       </header>
 
 <div class="row">
@@ -126,7 +125,7 @@ handling the R6 system. See functions below for detailed usage. See http://pkg.y
     </div>
 
     <div class="ref-description">
-    <p>The <code>LazyScript</code> series provides functions that can copy/run code between script and rmd files.
+    <p>The <code>LazyScript</code> serie provides functions that can copy/run code between script and rmd files.
 <code>LazyScript</code> is a R6 class, but the functions here provides means for user to use <code>LazyScript</code> instead of
 handling the R6 system. See functions below for detailed usage. See <a href='http://pkg.yangzhuoranyang.com/lazytype/'>http://pkg.yangzhuoranyang.com/lazytype/</a> for more documentations.</p>
     </div>
@@ -175,33 +174,44 @@ make the copy to the corresponding chunks If FALSE, the chunks are appended to t
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A LazyScript object</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The <code>LazyScript</code> serie generally depends on the prul header <code>## ----</code> to seperate the sections in the script.
+See <code>insert_purl_section</code> for addin to insert this header quickly. It is also the head that <code><a href='https://rdrr.io/pkg/knitr/man/read_chunk.html'>knitr::read_chunk</a></code>
+uses to regonise chunks.</p>
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
-    
-<ul>
-<li><p><code>read_script</code>: Read in script and store them in a LazyScript object. Similar to <code><a href='https://rdrr.io/pkg/knitr/man/read_chunk.html'>knitr::read_chunk</a></code> but in the context of script</p></li>
+    <ul>
+<li><p><code>read_script</code>: Read in script and store them in a LazyScript object.
+Similar to <code><a href='https://rdrr.io/pkg/knitr/man/read_chunk.html'>knitr::read_chunk</a></code> but in the context of script. Use purl header
+<code>## ----</code> to set labels in the script.</p></li>
 <li><p><code>%run%</code>: Run the chunk in the LazyScript object based on the specified label.
-Note: use print explicitly in the script to print result in the console.</p></li>
+Note: use <code>print</code> explicitly in the script to print result in the console.</p></li>
 <li><p><code>copy_script_to_rmd</code>: Copy the code in the script to the rmarkdown file based on the chunk label (when <code>match_chunk = TRUE</code>),
 or append the code to the end.</p></li>
 </ul>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/knitr/man/read_chunk.html'>knitr::read_chunk</a></code>, <code>insert_purl_section</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><span class='co'># NOT RUN {</span>
 <span class='no'>test_script</span> <span class='kw'>&lt;-</span> <span class='fu'>read_script</span>(<span class='st'>"test.R"</span>)
 
 <span class='no'>test_script</span> <span class='kw'>%run%</span> <span class='st'>"hello"</span>
 
 <span class='fu'>copy_script_to_rmd</span>(<span class='st'>"test.R"</span>, <span class='st'>"test.Rmd"</span>)
 
-}</div></pre>
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#functions">Functions</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -210,23 +220,19 @@ or append the code to the end.</p></li>
   </div>
 </div>
 
-
       <footer>
       <div class="copyright">
   <p>Developed by <a href='https://yangzhuoranyang.com'>Yangzhuoran Yang</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
-
       </footer>
    </div>
 
   
 
-
   </body>
 </html>
-
 
