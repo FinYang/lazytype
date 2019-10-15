@@ -24,8 +24,9 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -64,6 +65,7 @@ handling the R6 system. See functions below for detailed usage. See http://pkg.y
 
   gtag('config', 'UA-129140417-1');
 </script>
+
 
   </head>
 
@@ -114,6 +116,7 @@ handling the R6 system. See functions below for detailed usage. See http://pkg.y
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -181,7 +184,8 @@ See <code>insert_purl_section</code> for addin to insert this header quickly. It
 uses to regonise chunks.</p>
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
-    <ul>
+    
+<ul>
 <li><p><code>read_script</code>: Read in script and store them in a LazyScript object.
 Similar to <code><a href='https://rdrr.io/pkg/knitr/man/read_chunk.html'>knitr::read_chunk</a></code> but in the context of script. Use purl header
 <code>## ----</code> to set labels in the script.</p></li>
@@ -195,14 +199,14 @@ or append the code to the end.</p></li>
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/knitr/man/read_chunk.html'>knitr::read_chunk</a></code>, <code>insert_purl_section</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='no'>test_script</span> <span class='kw'>&lt;-</span> <span class='fu'>read_script</span>(<span class='st'>"test.R"</span>)
 
 <span class='no'>test_script</span> <span class='kw'>%run%</span> <span class='st'>"hello"</span>
 
 <span class='fu'>copy_script_to_rmd</span>(<span class='st'>"test.R"</span>, <span class='st'>"test.Rmd"</span>)
 
-<span class='co'># }</span></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -220,19 +224,23 @@ or append the code to the end.</p></li>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by <a href='https://yangzhuoranyang.com'>Yangzhuoran Yang</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

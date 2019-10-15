@@ -4,8 +4,8 @@
 # lazytype
 
 The R package *lazytype* provides addins for inserting code and running
-code in a different manner, and functions to interact scripts with each
-other and to interact script with rmarkdown file.
+code in a different manner, and functions to allow interaction between
+scripts and between script and rmarkdown file.
 
 ## Installation
 

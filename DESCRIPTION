@@ -4,7 +4,7 @@ Title: Functions and Addins to save keystrokes and clicks
 Version: 0.0.0.9000
 Authors@R: person("Yangzhuoran", "Yang", email = "Fin.Yang@monash.edu",
                   role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1232-8017"))
-Description: The package provides addins for inserting code and running code in a different manner, and functions to interact scripts with each other and to interact script with rmarkdown file.
+Description: The package provides addins for inserting code and running code in a different manner, and functions to allow interaction between scripts and between script and rmarkdown file.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
