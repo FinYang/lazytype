@@ -2,10 +2,21 @@
 % Please edit documentation in R/dont_sign_me_out.R
 \name{dont_sign_me_out}
 \alias{dont_sign_me_out}
-\title{Move mouse every 5 minutes}
+\alias{run_overnight}
+\title{Move mouse every 5 minutes to keep the PC awake}
 \usage{
 dont_sign_me_out(hours = 3.5)
+
+run_overnight()
+}
+\arguments{
+\item{hours}{Numeric. The number of hours that you want to keep the PC awake.}
 }
 \description{
-Move mouse every 5 minutes
+Move the mouse around the current position (then go back to the original position)
+every 5 minutes and print the time elapsed in the console.
+\code{run_overnight} is just a wrapper of \code{dont_sign_me_out} for 24 hours.
+}
+\author{
+Yangzhuoran Yang
 }

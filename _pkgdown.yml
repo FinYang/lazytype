@@ -1,9 +1,33 @@
+development:
+  mode: auto
+
+
+
 destination: docs
 template:
   params:
     ganalytics: UA-129140417-1
+    bootswatch: flatly
 
 authors:
   Yangzhuoran Yang:
     href: https://yangzhuoranyang.com
 
+
+reference:
+- title: LazyScript
+  desc: ~
+  contents:
+  - '`LazyScript`'
+- title: Mouse mover
+  desc: ~
+  contents:
+  - '`dont_sign_me_out`'
+- title: Addins
+  desc: ~
+  contents:
+  - '`insert_purl_section`'
+  - '`insert_rmarkdown_chunk_editlabel`'
+  - '`insert_scoping_assignment`'
+  - '`run_all_to_cursor`'
+  - '`run_selected_arguments`'

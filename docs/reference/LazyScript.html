@@ -6,14 +6,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>See — LazyScript • lazytype</title>
+<title>Interact between scripts, and rmarkdown files — LazyScript • lazytype</title>
 
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -24,8 +24,9 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -34,8 +35,10 @@
 
 
 
-<meta property="og:title" content="See — LazyScript" />
-<meta property="og:description" content="See" />
+<meta property="og:title" content="Interact between scripts, and rmarkdown files — LazyScript" />
+<meta property="og:description" content="The LazyScript series provides functions that can copy/run code between script and rmd files.
+LazyScript is a R6 class, but the functions here provides means for user to use LazyScript instead of
+handling the R6 system. See functions below for detailed usage. See http://pkg.yangzhuoranyang.com/lazytype/ for more documentations." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -49,6 +52,17 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129140417-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-129140417-1');
+</script>
 
 
   </head>
@@ -67,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">lazytype</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9000</span>
       </span>
     </div>
 
@@ -80,19 +94,10 @@
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/lazytype.html">Get started</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/lazytype-vignette.html">lazytype</a>
-    </li>
-  </ul>
+<li>
+  <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -109,50 +114,119 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>See</h1>
+    <h1>Interact between scripts, and rmarkdown files</h1>
     <small class="dont-index">Source: <a href='https://github.com/FinYang/lazytex/blob/master/R/LazyScript.R'><code>R/LazyScript.R</code></a></small>
     <div class="hidden name"><code>LazyScript.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See</p>
+    <p>The <code>LazyScript</code> series provides functions that can copy/run code between script and rmd files.
+<code>LazyScript</code> is a R6 class, but the functions here provides means for user to use <code>LazyScript</code> instead of
+handling the R6 system. See functions below for detailed usage. See <a href='http://pkg.yangzhuoranyang.com/lazytype/'>http://pkg.yangzhuoranyang.com/lazytype/</a> for more documentations.</p>
     </div>
 
-    <pre class="usage"><span class='no'>LazyScript</span></pre>
+    <pre class="usage"><span class='fu'>read_script</span>(<span class='no'>script_path</span>, <span class='kw'>library</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
+<span class='no'>LazyScript</span> <span class='kw'>%run%</span> <span class='no'>chunk_name</span>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+<span class='fu'>copy_script_to_rmd</span>(<span class='no'>script_path</span>, <span class='kw'>rmd_path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>saveAll</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>match_chunk</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
-    <p>An object of class <code>R6ClassGenerator</code> of length 24.</p>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>script_path</th>
+      <td><p>String. The path to the script.</p></td>
+    </tr>
+    <tr>
+      <th>library</th>
+      <td><p>Logical. Whether the library chunk (if there is one in the script) is ran when read in the script</p></td>
+    </tr>
+    <tr>
+      <th>chunk_name</th>
+      <td><p>String. The label of the chunk in the script that you want to run.</p></td>
+    </tr>
+    <tr>
+      <th>rmd_path</th>
+      <td><p>String. The path to the rmarkdown file. The default is the file currently opened in the Rstudio editor.</p></td>
+    </tr>
+    <tr>
+      <th>saveAll</th>
+      <td><p>Logical. Whether save all open file in the editor. If FALSE, unsaved changes may be lost.</p></td>
+    </tr>
+    <tr>
+      <th>match_chunk</th>
+      <td><p>Logical. If TRUE, the function tries to find chunks in the script matching the chunks in the rmd file and
+make the copy to the corresponding chunks If FALSE, the chunks are appended to the end of the rmd file.</p></td>
+    </tr>
+    <tr>
+      <th>lazy_script</th>
+      <td><p>A LazyScript object.</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A LazyScript object</p>
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+
+    
+<ul>
+<li><p><code>read_script</code>: Read in script and store them in a LazyScript object. Similar to <code><a href='https://rdrr.io/pkg/knitr/man/read_chunk.html'>knitr::read_chunk</a></code> but in the context of script</p></li>
+<li><p><code>%run%</code>: Run the chunk in the LazyScript object based on the specified label.
+Note: use print explicitly in the script to print result in the console.</p></li>
+<li><p><code>copy_script_to_rmd</code>: Copy the code in the script to the rmarkdown file based on the chunk label (when <code>match_chunk = TRUE</code>),
+or append the code to the end.</p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>test_script</span> <span class='kw'>&lt;-</span> <span class='fu'>read_script</span>(<span class='st'>"test.R"</span>)
+
+<span class='no'>test_script</span> <span class='kw'>%run%</span> <span class='st'>"hello"</span>
+
+<span class='fu'>copy_script_to_rmd</span>(<span class='st'>"test.R"</span>, <span class='st'>"test.Rmd"</span>)
+
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#format">Format</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#functions">Functions</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
+    <h2>Author</h2>
+    <p>Yangzhuoran Yang</p>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
-  <p>Developed by Fin Yang.</p>
+  <p>Developed by <a href='https://yangzhuoranyang.com'>Yangzhuoran Yang</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

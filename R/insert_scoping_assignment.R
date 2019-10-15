@@ -1,3 +1,9 @@
+#' Insert Scoping Assignment Operator
+#'
+#' \code{insert_scoping_assignment} insert \code{<<-} at cursor. Binding to \code{Alt+=} is suggested.
+#'
+#' @author Yangzhuoran Yang
+#' @seealso \code{assignOps}
 #' @export
 insert_scoping_assignment <- function(){
   context <- rstudioapi::getActiveDocumentContext()

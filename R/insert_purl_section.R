@@ -1,4 +1,15 @@
-
+#' Insert Purl Section
+#'
+#' \code{insert_purl_section} insert \code{## ----  ----} at an empty line in the script, or turns a non-empty line to a comment with purl section
+#' header \code{## ----} (or turns it back). The header is recognised by \code{knitr::read_chunk} to read code for each chunk in the rmarkdown file from R script.
+#' See \code{?knitr::read_chunk} for more details. I suggest binding this addin with shortcut \code{Shift+Ctrl+Q}.
+#'
+#' Windows user can trigger a dialogue when input label. Use \code{purl_dialogue(TRUE)} or set \code{options(purl_dialogue = TRUE)}
+#' to turn it on.
+#'
+#'
+#' @seealso \code{knitr::read_chunk}, \code{insert_rmarkdown_chunk_editlabel}
+#' @author Yangzhuoran Yang
 #' @export
 insert_purl_section <- function(){
   context <- rstudioapi::getActiveDocumentContext()
@@ -35,15 +46,25 @@ insert_purl_section <- function(){
   }
 }
 
-# choose if using dialogue to insert puel section
+#' @rdname insert_purl_section
+#' @param dialogue Logical. Whether trigger a dialogue when input label.
 #' @export
-no_purl_dialogue <- function(nodialogue = TRUE){
+purl_dialogue <- function(dialogue = TRUE){
   if(!nodialogue && .Platform$OS.type!="windows"){
     stop("lazytex: insert_purl_section currently only support windows dialogue")
   }
-  options(purl_dialogue = !nodialogue)
+  options(purl_dialogue = dialogue)
 }
 
+#' Insert Rmarkdown Chunk (Edit Label)
+#'
+#' \code{insert_rmarkdown_chunk_editlabel} insert Rmarkdown Chunk with cursor placed at the label.
+#' Just a shortcut to insert chunk without any code in it to use with \code{knitr::read_chunk}.
+#' I suggest binding this addin with shortcut \code{Ctrl+Alt+O}.
+#'
+#'
+#' @seealso \code{knitr::read_chunk}, \code{insert_purl_section}
+#' @author Yangzhuoran Yang
 #' @export
 insert_rmarkdown_chunk_editlabel <- function(){
   context <- rstudioapi::getActiveDocumentContext()

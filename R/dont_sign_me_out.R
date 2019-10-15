@@ -1,5 +1,11 @@
-#' Move mouse every 5 minutes
+#' Move mouse every 5 minutes to keep the PC awake
 #'
+#' Move the mouse around the current position (then go back to the original position)
+#' every 5 minutes and print the time elapsed in the console.
+#' \code{run_overnight} is just a wrapper of \code{dont_sign_me_out} for 24 hours.
+#'
+#' @param hours Numeric. The number of hours that you want to keep the PC awake.
+#' @author Yangzhuoran Yang
 #'
 #'
 #' @export
@@ -38,7 +44,8 @@ dont_sign_me_out <- function(hours = 3.5){
   }
 }
 
+#' @rdname dont_sign_me_out
 #' @export
-run_ovrenight <- function(){
+run_overnight <- function(){
   dont_sign_me_out(hours = 24)
 }

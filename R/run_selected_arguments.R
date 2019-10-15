@@ -1,4 +1,13 @@
 
+#' Run Selected Arguments
+#'
+#' \code{run_selected_arguments} runs selected code, ignoring the comma.
+#' It normally is used to set the default arguments of a function where the arguments are separated by comma.
+#' Useful for testing function with different arguments.
+#' I suggest binding this addin with shortcut \code{Alt+R}
+#'
+#' @author Yangzhuoran Yang
+#' @seealso \code{run_all_to_cursor}
 #' @export
 run_selected_arguments <- function(){
   context <- rstudioapi::getActiveDocumentContext()

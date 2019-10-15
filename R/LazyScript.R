@@ -1,4 +1,25 @@
-#' @export
+#' Interact between scripts, and rmarkdown files
+#'
+#' The \code{LazyScript} series provides functions that can copy/run code between script and rmd files.
+#' \code{LazyScript} is a R6 class, but the functions here provides means for user to use \code{LazyScript} instead of
+#' handling the R6 system. See functions below for detailed usage. See \url{http://pkg.yangzhuoranyang.com/lazytype/} for more documentations.
+#'
+#'
+#'
+#' @name LazyScript
+#' @author Yangzhuoran Yang
+#'
+#' @examples
+#' \dontrun{
+#' test_script <- read_script("test.R")
+#'
+#' test_script %run% "hello"
+#'
+#' copy_script_to_rmd("test.R", "test.Rmd")
+#'
+#' }
+NULL
+
 LazyScript <- R6::R6Class("LazyScript", public = list(
   path = character(),
   script = NULL,
@@ -40,18 +61,35 @@ LazyScript <- R6::R6Class("LazyScript", public = list(
 
 ))
 
+#' @param script_path String. The path to the script.
+#' @param library Logical. Whether the library chunk (if there is one in the script) is ran when read in the script
+#' @return A LazyScript object
+#' @describeIn  LazyScript Read in script and store them in a LazyScript object. Similar to \code{knitr::read_chunk} but in the context of script
 #' @export
-read_script <- function(name, library = TRUE){
-  LazyScript$new(name, library)
+read_script <- function(script_path, library = TRUE){
+  LazyScript$new(script_path, library)
 }
 
 
+#' @param lazy_script A LazyScript object.
+#' @param chunk_name String. The label of the chunk in the script that you want to run.
+#' @describeIn LazyScript Run the chunk in the LazyScript object based on the specified label.
+#' Note: use print explicitly in the script to print result in the console.
 #' @export
-`%run%` <- function(lazy_script, name){
-  lazy_script$run(name)
+`%run%` <- function(LazyScript, chunk_name){
+  LazyScript$run(chunk_name)
 }
 
 
+
+
+
+#' @param rmd_path String. The path to the rmarkdown file. The default is the file currently opened in the Rstudio editor.
+#' @param saveAll Logical. Whether save all open file in the editor. If FALSE, unsaved changes may be lost.
+#' @param match_chunk Logical. If TRUE, the function tries to find chunks in the script matching the chunks in the rmd file and
+#' make the copy to the corresponding chunks If FALSE, the chunks are appended to the end of the rmd file.
+#' @describeIn LazyScript Copy the code in the script to the rmarkdown file based on the chunk label (when \code{match_chunk = TRUE}),
+#' or append the code to the end.
 #' @export
 copy_script_to_rmd <- function(script_path, rmd_path = NULL, saveAll = TRUE, match_chunk = TRUE){
   # if(check){
@@ -76,7 +114,7 @@ copy_script_to_rmd <- function(script_path, rmd_path = NULL, saveAll = TRUE, mat
   # } else if(saveAll){
   #   rstudioapi::documentSaveAll()
   # }
-  rstudioapi::documentSaveAll()
+  if(saveAll)  rstudioapi::documentSaveAll()
 
 
   if(is.null(rmd_path)) rmd_path <- rstudioapi::getSourceEditorContext()$path
@@ -107,7 +145,7 @@ copy_script_to_rmd <- function(script_path, rmd_path = NULL, saveAll = TRUE, mat
       added <- do.call(base::c, unname(groups))
       write(added, rmd_path)
       if(!is.null(existing)){
-        warning("Chunk [", existing, "] have existing contents")
+        warning("Chunk [", paste(existing, collapse = ","), "] have existing contents")
       }
       cat("Copy complete. Re-open rmd file if you don't see any changes.\n")
       return(invisible())
