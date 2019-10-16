@@ -10,10 +10,13 @@ Encoding: UTF-8
 LazyData: true
 Imports: 
     rMouse,
+    rJava,
+    utils,
     xfun,
     magrittr,
     R6,
     knitr,
+    stringr,
     rstudioapi(>= 0.5)
 RoxygenNote: 6.1.1
 URL: https://pkg.yangzhuoranyang.com/lazytype/, https://github.com/FinYang/lazytex

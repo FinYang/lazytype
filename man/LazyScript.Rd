@@ -19,6 +19,8 @@ copy_script_to_rmd(script_path, rmd_path = NULL, saveAll = TRUE,
 
 \item{library}{Logical. Whether the library chunk (if there is one in the script) is ran when read in the script}
 
+\item{LazyScript}{A LazyScript object.}
+
 \item{chunk_name}{String. The label of the chunk in the script that you want to run.}
 
 \item{rmd_path}{String. The path to the rmarkdown file. The default is the file currently opened in the Rstudio editor.}
@@ -27,8 +29,6 @@ copy_script_to_rmd(script_path, rmd_path = NULL, saveAll = TRUE,
 
 \item{match_chunk}{Logical. If TRUE, the function tries to find chunks in the script matching the chunks in the rmd file and
 make the copy to the corresponding chunks If FALSE, the chunks are appended to the end of the rmd file.}
-
-\item{lazy_script}{A LazyScript object.}
 }
 \value{
 A LazyScript object

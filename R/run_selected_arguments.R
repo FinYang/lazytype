@@ -43,7 +43,7 @@ run_selected_arguments <- function(){
     code <- code[-c(grep("=", code, invert = TRUE))]
   if(length(code) == 0)
     message("No assignment input")
-  tmp <- capture.output(eval(parse(text = code), globalenv()))
+  tmp <- utils::capture.output(eval(parse(text = code), globalenv()))
   # code_run <- gsub(",", ";", code)
   # try(force(code_run))
 }

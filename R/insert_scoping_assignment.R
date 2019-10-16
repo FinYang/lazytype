@@ -6,7 +6,7 @@
 #' @seealso \code{assignOps}
 #' @export
 insert_scoping_assignment <- function(){
-  context <<- rstudioapi::getActiveDocumentContext()
+  context <- rstudioapi::getActiveDocumentContext()
 
   start <- c(context$selection[[1]]$range$start)
   end <- c(context$selection[[1]]$range$end)

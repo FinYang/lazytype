@@ -19,16 +19,20 @@ dont_sign_me_out <- function(hours = 3.5){
     # posi <- (rMouse::coord())
     posi <- try(rMouse::coord(), silent = TRUE)
     if("try-error" %in% class(posi)){
-      rMouse:::.onLoad()
-      posi <- rMouse::coord()
+      # rMouse:::.onLoad()
+      jRobot <- rJava::.jnew("java/awt/Robot")
+      jMouseInfo <- rJava::.jnew("java/awt/MouseInfo")
+      x <- jMouseInfo$getPointerInfo()$getLocation()$x
+      y <- jMouseInfo$getPointerInfo()$getLocation()$y
+    } else {
+      x <- posi$x
+      y <- posi$y
     }
-    x <- posi$x
-    y <- posi$y
-    rMouse::move(x, y+50, failSafe = FALSE)
-    rMouse::move(x+50, y, failSafe = FALSE)
-    rMouse::move(x, y-50, failSafe = FALSE)
-    rMouse::move(x-50, y, failSafe = FALSE)
-    rMouse::move(x,y, failSafe = FALSE)
+    jRobot$mouseMove(as.integer(x), as.integer(y+50))
+    jRobot$mouseMove(as.integer(x+50), as.integer(y))
+    jRobot$mouseMove(as.integer(x), as.integer(y-50))
+    jRobot$mouseMove(as.integer(x-50), as.integer(y))
+    jRobot$mouseMove(as.integer(x), as.integer(y))
     if(((i*5) %% 60) ==0)
       hour <- hour + 1
     if(((i*5) %% (60*24)) ==0)
@@ -40,7 +44,7 @@ dont_sign_me_out <- function(hours = 3.5){
     } else {
       cat("\r",paste0( ifelse(i >1, "", " "), i*5, " mins"))
     }
-    flush.console()
+    utils::flush.console()
   }
 }
 

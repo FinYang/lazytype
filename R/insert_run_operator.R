@@ -7,7 +7,7 @@
 #' @export
 insert_run_operator <- function(){
 
-  context <<- rstudioapi::getActiveDocumentContext()
+  context <- rstudioapi::getActiveDocumentContext()
 
   start <- c(context$selection[[1]]$range$start)
   end <- c(context$selection[[1]]$range$end)

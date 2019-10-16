@@ -34,7 +34,7 @@ LazyScript <- R6::R6Class("LazyScript", public = list(
     if (!length(lines)) {
       warning("code is empty")
     }
-    lab <- knitr:::.sep.label
+    lab <- "^(#|--)+\\s*(@knitr|----+)(.*?)-*\\s*$"
 
     idx <- cumsum(grepl(lab, lines))
     if (idx[1] == 0) {
@@ -76,7 +76,7 @@ read_script <- function(script_path, library = TRUE){
 }
 
 
-#' @param lazy_script A LazyScript object.
+#' @param LazyScript A LazyScript object.
 #' @param chunk_name String. The label of the chunk in the script that you want to run.
 #' @describeIn LazyScript Run the chunk in the LazyScript object based on the specified label.
 #' Addin \code{insert_run_operator} can be used to insert it.
