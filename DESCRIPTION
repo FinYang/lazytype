@@ -19,8 +19,8 @@ Imports:
     stringr,
     rstudioapi(>= 0.5)
 RoxygenNote: 6.1.1
-URL: https://pkg.yangzhuoranyang.com/lazytype/, https://github.com/FinYang/lazytex
-BugReports: https://github.com/FinYang/lazytex/issues
+URL: https://pkg.yangzhuoranyang.com/lazytype/, https://github.com/FinYang/lazytype
+BugReports: https://github.com/FinYang/lazytype/issues
 Suggests: 
     rmarkdown,
     testthat

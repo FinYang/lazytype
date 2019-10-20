@@ -104,7 +104,7 @@ handling the R6 system. See functions below for detailed usage. See http://pkg.y
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/FinYang/lazytex">
+  <a href="https://github.com/FinYang/lazytype">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -123,7 +123,7 @@ handling the R6 system. See functions below for detailed usage. See http://pkg.y
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Interact between scripts, and rmarkdown files</h1>
-    <small class="dont-index">Source: <a href='https://github.com/FinYang/lazytex/blob/master/R/LazyScript.R'><code>R/LazyScript.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/FinYang/lazytype/blob/master/R/LazyScript.R'><code>R/LazyScript.R</code></a></small>
     <div class="hidden name"><code>LazyScript.Rd</code></div>
     </div>
 
@@ -152,6 +152,10 @@ handling the R6 system. See functions below for detailed usage. See <a href='htt
       <td><p>Logical. Whether the library chunk (if there is one in the script) is ran when read in the script</p></td>
     </tr>
     <tr>
+      <th>LazyScript</th>
+      <td><p>A LazyScript object.</p></td>
+    </tr>
+    <tr>
       <th>chunk_name</th>
       <td><p>String. The label of the chunk in the script that you want to run.</p></td>
     </tr>
@@ -167,10 +171,6 @@ handling the R6 system. See functions below for detailed usage. See <a href='htt
       <th>match_chunk</th>
       <td><p>Logical. If TRUE, the function tries to find chunks in the script matching the chunks in the rmd file and
 make the copy to the corresponding chunks If FALSE, the chunks are appended to the end of the rmd file.</p></td>
-    </tr>
-    <tr>
-      <th>lazy_script</th>
-      <td><p>A LazyScript object.</p></td>
     </tr>
     </table>
 
