@@ -24,7 +24,7 @@ insert_purl_section <- function(){
 
   if(is_blank){
     dialogue <- getOption("purl_dialogue")
-    if(!is.null(dialogue) || dialogue){
+    if(!is.null(dialogue) && dialogue){
       label <- utils::winDialogString("Section label:", "")
       label_line <- paste0("## ---- ", label, " ----")
       rstudioapi::insertText(c(row_number, 1), text = paste0(label_line, "\n\n"))
