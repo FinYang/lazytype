@@ -94,10 +94,11 @@ read_script <- function(script_path, library = TRUE){
 #' @param saveAll Logical. Whether save all open file in the editor. If FALSE, unsaved changes may be lost.
 #' @param match_chunk Logical. If TRUE, the function tries to find chunks in the script matching the chunks in the rmd file and
 #' make the copy to the corresponding chunks If FALSE, the chunks are appended to the end of the rmd file.
+#' @param update Logical. If both \code{match_chunk} and \code{update} are TRUE, remove the existing contents in the chunk before copy-and-paste
 #' @describeIn LazyScript Copy the code in the script to the rmarkdown file based on the chunk label (when \code{match_chunk = TRUE}),
 #' or append the code to the end.
 #' @export
-copy_script_to_rmd <- function(script_path, rmd_path = NULL, saveAll = TRUE, match_chunk = TRUE){
+copy_script_to_rmd <- function(script_path, rmd_path = NULL, saveAll = TRUE, match_chunk = TRUE, update = FALSE){
   # if(check){
   #   current_window <- rstudioapi::getSourceEditorContext()
   #   if(identical(normalizePath(rmd_path), normalizePath(current_window$path))){
@@ -128,6 +129,7 @@ copy_script_to_rmd <- function(script_path, rmd_path = NULL, saveAll = TRUE, mat
   text <- lazy_script$script
   text <- text[sapply(text, function(x) length(x)!=0)]
 
+
   if(match_chunk){
     lines <- xfun::read_utf8(rmd_path)
     lab <- "^```\\{r (.*)\\}$"
@@ -140,6 +142,7 @@ copy_script_to_rmd <- function(script_path, rmd_path = NULL, saveAll = TRUE, mat
     if(!length(extlab)){
       message("No matching chunk found. Append script to the end.")
     } else {
+      if(update) remove_rmd_chunk(rmd_path)
       names(groups) <- labels
       code <- text[extlab]
       existing <- NULL
@@ -167,5 +170,36 @@ copy_script_to_rmd <- function(script_path, rmd_path = NULL, saveAll = TRUE, mat
   cat("Copy complete. Re-open rmd file if you don't see any changes.\n")
 }
 
+#' @export
+remove_rmd_chunk <- function(rmd_path, match_labels = NULL){
+  lines <- xfun::read_utf8(rmd_path)
+  lab <- "^```\\{r (.*)\\}$"
 
+  idx <- cumsum(grepl(lab, lines))
+  groups <- unname(split(lines, idx))
+  labels <- stringr::str_trim(gsub(lab, "\\1", sapply(groups, `[`, 1)))
+  labels <- gsub(",.*", "", labels)
+  # extlab <- names(text)[names(text) %in% labels]
+  # if(!length(extlab)){
+    # stop("No matching chunk found.")
+  names(groups) <- labels
+  # code <- text[extlab]
+  existing <- NULL
+  if(is.null(match_labels)) match_labels <- setdiff(labels,c("---", "setup"))
+  for(lb in match_labels){
+    endpo <- grep("^```$", groups[[lb]])
+    groups[[lb]] <- groups[[lb]][-(2:(endpo-1))]
+  }
+  added <- do.call(base::c, unname(groups))
+  write(added, rmd_path)
+  # if(!is.null(existing)){
+  #   warning("Chunk [", paste(existing, collapse = ","), "] have existing contents")
+  # }
+  # cat("Copy complete. Re-open rmd file if you don't see any changes.\n")
+  return(invisible())
+}
 
+#' @export
+update_script_to_rmd <- function(script_path, rmd_path = NULL, saveAll = TRUE){
+  copy_script_to_rmd(script_path, rmd_path, saveAll, TRUE, TRUE)
+}
