@@ -28,6 +28,7 @@ LazyScript <- R6::R6Class("LazyScript", public = list(
   script = NULL,
   initialize = function(path, library = TRUE){
     stopifnot(is.character(path))
+    if(gsub("^.*\\.(.*)$", "\\1", path) != "R") stop("Not R script.")
     self$path <- path
     lines <- xfun::read_utf8(path)
 
@@ -123,7 +124,6 @@ copy_script_to_rmd <- function(script_path, rmd_path = NULL, saveAll = TRUE, mat
   # }
   if(saveAll)  rstudioapi::documentSaveAll()
 
-
   if(is.null(rmd_path)) rmd_path <- rstudioapi::getSourceEditorContext()$path
   lazy_script <- LazyScript$new(script_path, library = FALSE)
   text <- lazy_script$script
@@ -131,6 +131,7 @@ copy_script_to_rmd <- function(script_path, rmd_path = NULL, saveAll = TRUE, mat
 
 
   if(match_chunk){
+    if(update) remove_rmd_chunk(rmd_path)
     lines <- xfun::read_utf8(rmd_path)
     lab <- "^```\\{r (.*)\\}$"
 
@@ -142,7 +143,7 @@ copy_script_to_rmd <- function(script_path, rmd_path = NULL, saveAll = TRUE, mat
     if(!length(extlab)){
       message("No matching chunk found. Append script to the end.")
     } else {
-      if(update) remove_rmd_chunk(rmd_path)
+
       names(groups) <- labels
       code <- text[extlab]
       existing <- NULL
@@ -170,8 +171,12 @@ copy_script_to_rmd <- function(script_path, rmd_path = NULL, saveAll = TRUE, mat
   cat("Copy complete. Re-open rmd file if you don't see any changes.\n")
 }
 
+#' @param match_labels Vector of characters. The name of the chunk where contents to be removed.
+#' If NULL, remove contents for all chunks except \code{setup}.
+#' @describeIn LazyScript Remove the contents in the chunk.
 #' @export
 remove_rmd_chunk <- function(rmd_path, match_labels = NULL){
+  if(!gsub("^.*\\.(.*)$", "\\1", rmd_path) %in% c("rmd", "Rmd")) stop("Not Rmarkdown file.")
   lines <- xfun::read_utf8(rmd_path)
   lab <- "^```\\{r (.*)\\}$"
 
@@ -179,12 +184,7 @@ remove_rmd_chunk <- function(rmd_path, match_labels = NULL){
   groups <- unname(split(lines, idx))
   labels <- stringr::str_trim(gsub(lab, "\\1", sapply(groups, `[`, 1)))
   labels <- gsub(",.*", "", labels)
-  # extlab <- names(text)[names(text) %in% labels]
-  # if(!length(extlab)){
-    # stop("No matching chunk found.")
   names(groups) <- labels
-  # code <- text[extlab]
-  existing <- NULL
   if(is.null(match_labels)) match_labels <- setdiff(labels,c("---", "setup"))
   for(lb in match_labels){
     endpo <- grep("^```$", groups[[lb]])
@@ -192,14 +192,45 @@ remove_rmd_chunk <- function(rmd_path, match_labels = NULL){
   }
   added <- do.call(base::c, unname(groups))
   write(added, rmd_path)
-  # if(!is.null(existing)){
-  #   warning("Chunk [", paste(existing, collapse = ","), "] have existing contents")
-  # }
-  # cat("Copy complete. Re-open rmd file if you don't see any changes.\n")
   return(invisible())
 }
 
+#' @describeIn LazyScript Wrapper of \code{copy_script_to_rmd} for \code{match_chunk = TRUE, update = FALSE}
 #' @export
 update_script_to_rmd <- function(script_path, rmd_path = NULL, saveAll = TRUE){
   copy_script_to_rmd(script_path, rmd_path, saveAll, TRUE, TRUE)
 }
+
+
+#
+# LazyRmd <- R6::R6Class("LazyRmd", public = list(
+#   path = character(),
+#   rmd = NULL,
+#   initialize = function(path, library = TRUE){
+#     stopifnot(is.character(path))
+#     if(!gsub("^.*\\.(.*)$", "\\1", path) %in% c("rmd", "Rmd")) stop("Not Rmarkdown file.")
+#     self$path <- path
+#     lines <- xfun::read_utf8(path)
+#
+#     if (!length(lines)) {
+#       warning("file is empty")
+#     }
+#     lab <- "^```\\{r (.*)\\}$"
+#
+#     idx <- cumsum(grepl(lab, lines))
+#     groups <- unname(split(lines, idx))
+#     labels <- stringr::str_trim(gsub(lab, "\\1", sapply(groups, `[`, 1)))
+#     labels <- gsub(",.*", "", labels)
+#
+#     names(groups) <- labels
+#
+#     self$rmd <- groups
+#   },
+#   print = function(...){
+#     cat("LazyRmd: \n")
+#     cat("  Path: ", self$path, "\n", sep = "")
+#     cat("  Number of section: ", length(self$rmd), "\n", sep = "")
+#     cat("  List of sections: ", paste(names(self$rmd), collapse = ", "), "\n", sep = "")
+#     invisible(self)
+#   }
+# ))

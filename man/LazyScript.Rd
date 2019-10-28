@@ -5,6 +5,8 @@
 \alias{read_script}
 \alias{\%run\%}
 \alias{copy_script_to_rmd}
+\alias{remove_rmd_chunk}
+\alias{update_script_to_rmd}
 \title{Interact between scripts, and rmarkdown files}
 \usage{
 read_script(script_path, library = TRUE)
@@ -12,7 +14,11 @@ read_script(script_path, library = TRUE)
 LazyScript \%run\% chunk_name
 
 copy_script_to_rmd(script_path, rmd_path = NULL, saveAll = TRUE,
-  match_chunk = TRUE)
+  match_chunk = TRUE, update = FALSE)
+
+remove_rmd_chunk(rmd_path, match_labels = NULL)
+
+update_script_to_rmd(script_path, rmd_path = NULL, saveAll = TRUE)
 }
 \arguments{
 \item{script_path}{String. The path to the script.}
@@ -29,6 +35,11 @@ copy_script_to_rmd(script_path, rmd_path = NULL, saveAll = TRUE,
 
 \item{match_chunk}{Logical. If TRUE, the function tries to find chunks in the script matching the chunks in the rmd file and
 make the copy to the corresponding chunks If FALSE, the chunks are appended to the end of the rmd file.}
+
+\item{update}{Logical. If both \code{match_chunk} and \code{update} are TRUE, remove the existing contents in the chunk before copy-and-paste}
+
+\item{match_labels}{Vector of characters. The name of the chunk where contents to be removed.
+If NULL, remove contents for all chunks except \code{setup}.}
 }
 \value{
 A LazyScript object
@@ -55,6 +66,10 @@ Note: use \code{print} explicitly in the script to print result in the console.
 
 \item \code{copy_script_to_rmd}: Copy the code in the script to the rmarkdown file based on the chunk label (when \code{match_chunk = TRUE}),
 or append the code to the end.
+
+\item \code{remove_rmd_chunk}: Remove the contents in the chunk.
+
+\item \code{update_script_to_rmd}: Wrapper of \code{copy_script_to_rmd} for \code{match_chunk = TRUE, update = FALSE}
 }}
 
 \examples{
