@@ -24,10 +24,10 @@ run_selected_arguments <- function(){
   leftpa <- grepl("\\(", code)
   if(any(leftpa)){
     rightpa <- grepl("\\)", code)
-    singlepa <- xor(leftpa, rightpa)
+    singlepa <- xor(leftpa, rightpa) | (stringr::str_count(code, "(\\(|\\))") %% 2 !=0)
     singleleft <- which(singlepa & leftpa)
     if(length(singleleft)!=0){
-      singleright <- which(singlepa & rightpa)
+      singleright <- which(singlepa & rightpa & (stringr::str_count(code, "\\)") >stringr::str_count(code, "\\(") ))
       csl <- stringr::str_count(code[singleleft], "\\(")
       crl <- stringr::str_count(code[singleright], "\\)")
       if(!sum(csl) && sum(crl))
