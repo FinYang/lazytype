@@ -8,9 +8,7 @@ Description: The package provides addins for inserting code and running code in 
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: 
-    rMouse,
-    rJava,
+Imports:
     utils,
     xfun,
     magrittr,
@@ -18,11 +16,12 @@ Imports:
     knitr,
     stringr,
     rstudioapi(>= 0.5)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 URL: https://pkg.yangzhuoranyang.com/lazytype/, https://github.com/FinYang/lazytype
 BugReports: https://github.com/FinYang/lazytype/issues
 Suggests: 
     rmarkdown,
-    testthat
+    testthat, 
+    rJava
 VignetteBuilder: knitr
 Language: en-AU

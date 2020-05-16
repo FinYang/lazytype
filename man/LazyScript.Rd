@@ -13,8 +13,13 @@ read_script(script_path, library = TRUE)
 
 LazyScript \%run\% chunk_name
 
-copy_script_to_rmd(script_path, rmd_path = NULL, saveAll = TRUE,
-  match_chunk = TRUE, update = FALSE)
+copy_script_to_rmd(
+  script_path,
+  rmd_path = NULL,
+  saveAll = TRUE,
+  match_chunk = TRUE,
+  update = FALSE
+)
 
 remove_rmd_chunk(rmd_path, match_labels = NULL)
 

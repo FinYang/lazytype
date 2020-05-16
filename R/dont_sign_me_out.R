@@ -10,6 +10,10 @@
 #'
 #' @export
 dont_sign_me_out <- function(hours = 3.5){
+  test <- try(requireNamespace("rJava"))
+  if("try-error" %in% class(test)) stop("You need to have Java installed.")
+  if(!test) stop("You need to have package rJava installed.")
+
   hour <- 0
   day <- 0
   for(i in 1:(12*hours)){
@@ -17,17 +21,17 @@ dont_sign_me_out <- function(hours = 3.5){
     # if(i %% 2 == 0) rMouse::move(800,0) else rMouse::move(700,0)
     # rMouse::left()
     # posi <- (rMouse::coord())
-    posi <- try(rMouse::coord(), silent = TRUE)
-    if("try-error" %in% class(posi)){
-      # rMouse:::.onLoad()
-      jRobot <- rJava::.jnew("java/awt/Robot")
-      jMouseInfo <- rJava::.jnew("java/awt/MouseInfo")
-      x <- jMouseInfo$getPointerInfo()$getLocation()$x
-      y <- jMouseInfo$getPointerInfo()$getLocation()$y
-    } else {
-      x <- posi$x
-      y <- posi$y
-    }
+    # posi <- try(rMouse::coord(), silent = TRUE)
+    # if("try-error" %in% class(posi)){
+    # rMouse:::.onLoad()
+    jRobot <- rJava::.jnew("java/awt/Robot")
+    jMouseInfo <- rJava::.jnew("java/awt/MouseInfo")
+    x <- jMouseInfo$getPointerInfo()$getLocation()$x
+    y <- jMouseInfo$getPointerInfo()$getLocation()$y
+    # } else {
+    #   x <- posi$x
+    #   y <- posi$y
+    # }
     jRobot$mouseMove(as.integer(x), as.integer(y+50))
     jRobot$mouseMove(as.integer(x+50), as.integer(y))
     jRobot$mouseMove(as.integer(x), as.integer(y-50))

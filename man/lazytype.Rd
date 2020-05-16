@@ -3,7 +3,6 @@
 \docType{package}
 \name{lazytype}
 \alias{lazytype}
-\alias{lazytype-package}
 \title{Functions and Addins to save keystrokes and clicks}
 \description{
 The lazytype package provides addins for inserting code and running code in a different manner,
