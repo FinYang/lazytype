@@ -20,6 +20,7 @@ RoxygenNote: 7.1.0
 URL: https://pkg.yangzhuoranyang.com/lazytype/, https://github.com/FinYang/lazytype
 BugReports: https://github.com/FinYang/lazytype/issues
 Suggests: 
+    beepr,
     rmarkdown,
     testthat, 
     rJava
