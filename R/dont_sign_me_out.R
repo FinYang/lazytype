@@ -5,18 +5,24 @@
 #' \code{run_overnight} is just a wrapper of \code{dont_sign_me_out} for 24 hours.
 #'
 #' @param hours Numeric. The number of hours that you want to keep the PC awake.
+#' @param reminder Numeric. Play a sound reminder every \code{reminder} hours if not \code{NULL}.
+#' @param dialog Logical. Whether to show a dialog remainder if reminder is set.
 #' @author Yangzhuoran Yang
 #'
 #'
 #' @export
-dont_sign_me_out <- function(hours = 3.5){
+dont_sign_me_out <- function(hours = 3.5, reminder = NULL, dialog = TRUE){
+  if(!is.null(reminder)){
+    if(!requireNamespace("beepr"))
+      stop("Need to install beepr to use the reminder functionality.")
+  }
   test <- try(requireNamespace("rJava"))
   if("try-error" %in% class(test)) stop("You need to have Java installed.")
   if(!test) stop("You need to have package rJava installed.")
 
   hour <- 0
   day <- 0
-  for(i in 1:(12*hours)){
+  for(i in 1:ceiling(12*hours)){
     Sys.sleep(300)
     # if(i %% 2 == 0) rMouse::move(800,0) else rMouse::move(700,0)
     # rMouse::left()
@@ -49,6 +55,19 @@ dont_sign_me_out <- function(hours = 3.5){
       cat("\r",paste0( ifelse(i >1, "", " "), i*5, " mins"))
     }
     utils::flush.console()
+    if(!is.null(reminder)){
+      if(i %% ceiling(12*reminder) ==0){
+        beepr::beep()
+      }
+      if(dialog){
+        if(.Platform$OS.type=="windows"){
+          utils::winDialog("ok", "It's time to get up, drink some water and walk around.")
+        } else {
+          warning("currently only support windows dialogue")
+        }
+
+      }
+    }
   }
 }
 
