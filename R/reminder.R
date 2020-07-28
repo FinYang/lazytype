@@ -15,18 +15,37 @@ reminder <- function(hours = 1, message =  "It's time to get up, drink some wate
       stop("Need to install beepr to use the reminder functionality.")
   }
   for(i in 1:ceiling(life/hours)){
-    Sys.sleep(hours*3600)
-    cat("\r", paste("elapsed", i*hours, "hour(s)"))
-    utils::flush.console()
-    if(!is.null(beep))
-        beepr::beep(beep)
-      if(dialog){
-        if(.Platform$OS.type=="windows"){
-          utils::winDialog("ok", message)
-        } else {
-          warning("currently only support windows dialogue")
-        }
+    for(j in seq_len(ceiling(hours*60/5))){
+      if(hours*60 <5) {
+        Sys.sleep(hours*60*60)
 
+        elap <- i*hours*60
+        if(elap<60){
+          cat("\r", paste("elapsed", round(elap, 2), "mins"))
+        } else {
+          cat("\r", paste("elapsed", floor(elap/60), "hour(s)", floor(elap%%60), "mins"))
+        }
+        break
       }
+      Sys.sleep(60*5)
+      elap <- j*5+(i-1)*ceiling(hours*60/5)*5
+      if(elap<60){
+        cat("\r", paste("elapsed", elap, "mins"))
+      } else {
+        cat("\r", paste("elapsed", floor(elap/60), "hour(s)", floor(elap%%60), "mins"))
+      }
+      utils::flush.console()
+    }
+    if(!is.null(beep))
+      beepr::beep(beep)
+    if(dialog){
+      if(.Platform$OS.type=="windows"){
+        if(i == ceiling(life/hours)) message <- paste0(message, "\n This is the last reminder.")
+        utils::winDialog("ok", message)
+      } else {
+        warning("currently only support windows dialogue")
+      }
+
+    }
   }
 }
