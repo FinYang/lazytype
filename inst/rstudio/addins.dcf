@@ -27,3 +27,8 @@ Name: Run All up to Cursor
 Description: Run All code in the current script up to the current line
 Binding: run_all_to_cursor
 Interactive: true
+
+Name: Bracket Selection
+Description: Surround selected area with customised bracket. Set brakcet using lazytype::set_brakcets
+Binding: bracket_selection
+Interactive: false
