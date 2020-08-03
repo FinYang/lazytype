@@ -32,14 +32,11 @@ set_brackets <- function(left = "{", right = "}"){
 }
 
 #' @rdname bracket_selection
-#' @return Return current brackets and print (\code{cat}) brackets around the word "example".
+#' @return Return current brackets
 #' @export
 get_brackets <- function(){
   brackets <- (c(left = getOption("lazyBracket_left", "{"), right = getOption("lazyBracket_right", "}")))
-  cat(paste0(brackets[[1]],
-             "example",
-             brackets[[2]]))
-  return(invisible(brackets))
+  return(brackets)
 
 }
 
