@@ -17,6 +17,9 @@ bracket_selection <- function(){
                           text = paste0(brackets[[1]],
                                         context$selection[[1]]$text,
                                         brackets[[2]]))
+  if(context$selection[[1]]$text == ""){
+    rstudioapi::setCursorPosition(c(row_number, context$selection[[1]]$range[[1]][[2]]+stringr::str_length(brackets[[1]])))
+  }
 }
 
 #' @rdname bracket_selection
