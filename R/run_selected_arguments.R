@@ -6,7 +6,7 @@
 #' I suggest binding this addin with shortcut \code{Alt+R}
 #'
 #' @author Yangzhuoran Yang
-#' @seealso \code{run_all_to_cursor}
+#' @seealso \code{run_all_to_cursor}, \code{run_current_purl_section}
 #' @export
 run_selected_arguments <- function(){
   context <- rstudioapi::getActiveDocumentContext()

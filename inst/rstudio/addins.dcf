@@ -28,6 +28,11 @@ Description: Run All code in the current script up to the current line
 Binding: run_all_to_cursor
 Interactive: true
 
+Name: Run Current Purl Section
+Description: Run code in the purl section that the cursor is in
+Binding: run_current_purl_section
+Interactive: true
+
 Name: Bracket Selection
 Description: Surround selected area with customised bracket. Set brakcet using lazytype::set_brakcets
 Binding: bracket_selection
