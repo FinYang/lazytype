@@ -7,7 +7,7 @@
 #' @export
 run_current_purl_section <- function(){
   context <- rstudioapi::getActiveDocumentContext()
-  temp_script <- read_script(context$path, library = "FALSE")
+  temp_script <- read_script(context$path, library = FALSE)
   lab <- "^(#|--)+\\s*(@knitr|----+)(.*?)-*\\s*$"
   temp <- rev(head(context$contents, context$selection[[1]]$range$start[[1]]))
   ind <- try(grep(lab, temp)[[1]], silent = TRUE)
