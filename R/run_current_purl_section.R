@@ -13,7 +13,7 @@ run_current_purl_section <- function(){
   ind <- try(grep(lab, temp)[[1]], silent = TRUE)
   if(class(ind) == "try-error") stop("Cursor not in a purl section.")
   label <- stringr::str_trim(gsub(lab, "\\3", temp[[ind]]))
-  temp_script$run(label)
+  temp_script$run(label, return_self = FALSE)
   # end <- context$selection[[length(context$selection)]]$range$end[[1]]
   # eval(parse(text = context$contents[1:end]), globalenv())
 }
