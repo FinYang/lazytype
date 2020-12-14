@@ -39,8 +39,7 @@ set_brackets <- function(left = "{", right = "}"){
 #' @export
 get_brackets <- function(){
   brackets <- (c(left = getOption("lazyBracket_left", "{"), right = getOption("lazyBracket_right", "}")))
-  cat(paste0(brackets[["left"]], "example", brackets[["right"]], "\n\n"))
-  return(invisible(brackets))
+  return(brackets)
 
 }
 

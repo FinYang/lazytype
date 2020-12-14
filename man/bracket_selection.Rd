@@ -18,7 +18,7 @@ get_brackets()
 \item{right}{right of the bracket}
 }
 \value{
-Return current brackets and print (\code{cat}) brackets around the word "example".
+Return current brackets
 }
 \description{
 Add customised brackets around selection by setting addin using \code{bracket_selection}.

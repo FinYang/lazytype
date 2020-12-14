@@ -11,7 +11,7 @@ run_all_to_cursor()
 I suggest binding this addin with shortcut \code{Ctrl+Alt+R}.
 }
 \seealso{
-\code{run_selected_arguments}
+\code{run_selected_arguments}, \code{run_current_purl_section}
 }
 \author{
 Yangzhuoran Yang

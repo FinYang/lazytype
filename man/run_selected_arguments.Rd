@@ -13,7 +13,7 @@ Useful for testing function with different arguments.
 I suggest binding this addin with shortcut \code{Alt+R}
 }
 \seealso{
-\code{run_all_to_cursor}
+\code{run_all_to_cursor}, \code{run_current_purl_section}
 }
 \author{
 Yangzhuoran Yang
