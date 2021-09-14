@@ -59,7 +59,7 @@ LazyScript <- R6::R6Class("LazyScript", public = list(
   },
   run = function(name, envir = globalenv(), return_self = TRUE){
     if(!name %in% names(self$script)) stop("Chunk not found in the script.")
-    out <- eval(parse(text = self$script[[name]]), envir = envir)
+    out <- eval(parse(text = self$script[[name]], encoding = "UTF-8"), envir = envir)
     if(return_self) return(invisible(self))
     return(out)
   }
