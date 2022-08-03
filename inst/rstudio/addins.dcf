@@ -37,3 +37,13 @@ Name: Bracket Selection
 Description: Surround selected area with customised bracket. Set brakcet using lazytype::set_brakcets
 Binding: bracket_selection
 Interactive: false
+
+Name: Store expression to debug
+Description: Store selected expression to debug later. Run them with lazytype:rerun_debug
+Binding: store_debug_expr
+Interactive: false
+
+Name: Rerun stored expression to debug
+Description: Rerun stored expression to debug. Store them with lazytype::store_debug_expr
+Binding: rerun_debug
+Interactive: true

@@ -61,22 +61,22 @@ uses to regonise chunks.
 }
 \section{Functions}{
 \itemize{
-\item \code{read_script}: Read in script and store them in a LazyScript object.
+\item \code{read_script()}: Read in script and store them in a LazyScript object.
 Similar to \code{knitr::read_chunk} but in the context of script. Use purl header
 \code{## ----} to set labels in the script.
 
-\item \code{\%run\%}: Run the chunk in the LazyScript object based on the specified label.
+\item \code{LazyScript \%run\% chunk_name}: Run the chunk in the LazyScript object based on the specified label.
 Addin \code{insert_run_operator} can be used to insert it.
 Note: use \code{print} explicitly in the script to print result in the console.
 
-\item \code{copy_script_to_rmd}: Copy the code in the script to the rmarkdown file based on the chunk label (when \code{match_chunk = TRUE}),
+\item \code{copy_script_to_rmd()}: Copy the code in the script to the rmarkdown file based on the chunk label (when \code{match_chunk = TRUE}),
 or append the code to the end.
 
-\item \code{remove_rmd_chunk}: Remove the contents in the chunk.
+\item \code{remove_rmd_chunk()}: Remove the contents in the chunk.
 
-\item \code{update_script_to_rmd}: Wrapper of \code{copy_script_to_rmd} for \code{match_chunk = TRUE, update = FALSE}
+\item \code{update_script_to_rmd()}: Wrapper of \code{copy_script_to_rmd} for \code{match_chunk = TRUE, update = FALSE}
+
 }}
-
 \examples{
 \dontrun{
 test_script <- read_script("test.R")
