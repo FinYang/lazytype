@@ -25,5 +25,6 @@ store_debug_expr <- function(expr = NULL){
 
 #' @export
 rerun_debug <- function(){
+  cat(debug_env[["debug_expr"]], sep = "\n")
   eval(parse(text = debug_env[["debug_expr"]]))
 }
