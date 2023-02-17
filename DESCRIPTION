@@ -15,8 +15,10 @@ Imports:
     R6,
     knitr,
     stringr,
-    rstudioapi(>= 0.5)
-RoxygenNote: 7.2.1
+    rstudioapi (>= 0.5),
+    dplyr,
+    rlang
+RoxygenNote: 7.2.3
 URL: https://pkg.yangzhuoranyang.com/lazytype/, https://github.com/FinYang/lazytype
 BugReports: https://github.com/FinYang/lazytype/issues
 Suggests: 

@@ -11,7 +11,7 @@ run_current_purl_section <- function(){
   lab <- "^(#|--)+\\s*(@knitr|----+)(.*?)-*\\s*$"
   temp <- rev(head(context$contents, context$selection[[1]]$range$start[[1]]))
   ind <- try(grep(lab, temp)[[1]], silent = TRUE)
-  if(class(ind) == "try-error") stop("Cursor not in a purl section.")
+  if(inherits(ind, "try-error")) stop("Cursor not in a purl section.")
   label <- stringr::str_trim(gsub(lab, "\\3", temp[[ind]]))
   temp_script$run(label, return_self = FALSE)
   # end <- context$selection[[length(context$selection)]]$range$end[[1]]
