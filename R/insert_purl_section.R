@@ -37,7 +37,7 @@ insert_purl_section <- function(){
   } else if(!is_purl){
     # not purl section
     label_line <- paste0("## ---- ", line, " ----")
-    rstudioapi::modifyRange(c(row_number, 1, row_number, nchar(line)+1), text = paste0(label_line, "\n\n"))
+    rstudioapi::modifyRange(c(row_number, 1, row_number, nchar(line)+1), text = label_line)
 
   } else {
     newline <- sub("^## ----* ", "", line)
