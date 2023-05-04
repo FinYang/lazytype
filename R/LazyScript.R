@@ -174,11 +174,22 @@ copy_script_to_rmd <- function(script_path, rmd_path = NULL, saveAll = TRUE, mat
 
 #' @param match_labels Vector of characters. The name of the chunk where contents to be removed.
 #' If NULL, remove contents for all chunks except \code{setup}.
-#' @describeIn LazyScript Remove the contents in the chunk.
+#' @describeIn LazyScript Remove code chunk in rmd files.
 #' @export
 remove_rmd_chunk <- function(rmd_path, match_labels = NULL){
   if(!gsub("^.*\\.(.*)$", "\\1", rmd_path) %in% c("rmd", "Rmd")) stop("Not Rmarkdown file.")
-  lines <- xfun::read_utf8(rmd_path)
+  remove_md_chunk(rmd_path, match_labels)
+}
+
+#' @describeIn LazyScript Remove code chunk in qmd files.
+#' @export
+remove_qmd_chunk <- function(qmd_path, match_labels = NULL){
+  if(!gsub("^.*\\.(.*)$", "\\1", qmd_path) %in% c("qmd")) stop("Not Quarto file.")
+  remove_md_chunk(qmd_path, match_labels)
+}
+
+remove_md_chunk <- function(path, match_labels = NULL){
+  lines <- xfun::read_utf8(path)
   lab <- "^```\\{r (.*)\\}$"
 
   idx <- cumsum(grepl(lab, lines))
@@ -192,9 +203,11 @@ remove_rmd_chunk <- function(rmd_path, match_labels = NULL){
     groups[[lb]] <- groups[[lb]][-(2:(endpo-1))]
   }
   added <- do.call(base::c, unname(groups))
-  write(added, rmd_path)
+  write(added, path)
   return(invisible())
 }
+
+
 
 #' @describeIn LazyScript Wrapper of \code{copy_script_to_rmd} for \code{match_chunk = TRUE, update = FALSE}
 #' @export

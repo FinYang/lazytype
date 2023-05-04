@@ -19,5 +19,6 @@
 #' @importFrom dplyr tibble
 #' @importFrom magrittr %>%
 #' @importFrom utils head
+#' @name lazytype
 ## usethis namespace: end
 NULL
