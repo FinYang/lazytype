@@ -7,6 +7,7 @@
 \alias{copy_script_to_rmd}
 \alias{remove_rmd_chunk}
 \alias{remove_qmd_chunk}
+\alias{lift_inchunk_label}
 \alias{update_script_to_rmd}
 \title{Interact between scripts, and rmarkdown files}
 \usage{
@@ -26,6 +27,8 @@ remove_rmd_chunk(rmd_path, match_labels = NULL)
 
 remove_qmd_chunk(qmd_path, match_labels = NULL)
 
+lift_inchunk_label(md_path, inchunk_rm = FALSE)
+
 update_script_to_rmd(script_path, rmd_path = NULL, saveAll = TRUE)
 }
 \arguments{
@@ -37,7 +40,7 @@ update_script_to_rmd(script_path, rmd_path = NULL, saveAll = TRUE)
 
 \item{chunk_name}{String. The label of the chunk in the script that you want to run.}
 
-\item{rmd_path}{String. The path to the rmarkdown file. The default is the file currently opened in the Rstudio editor.}
+\item{rmd_path}{String. The path to the rmarkdown file. The default for \code{copy_script_to_rmd} is the file currently opened in the Rstudio editor.}
 
 \item{saveAll}{Logical. Whether save all open file in the editor. If FALSE, unsaved changes may be lost.}
 
@@ -48,6 +51,12 @@ make the copy to the corresponding chunks If FALSE, the chunks are appended to t
 
 \item{match_labels}{Vector of characters. The name of the chunk where contents to be removed.
 If NULL, remove contents for all chunks except \code{setup}.}
+
+\item{qmd_path}{String. The path to the Quarto file.}
+
+\item{md_path}{String. The path to the rmarkdown or quarto file.}
+
+\item{inchunk_rm}{Logical. Whether to remove the in-chunk label line once it is moved to the chunk header}
 }
 \value{
 A LazyScript object
@@ -78,6 +87,8 @@ or append the code to the end.
 \item \code{remove_rmd_chunk()}: Remove code chunk content in rmd files.
 
 \item \code{remove_qmd_chunk()}: Remove code chunk content in qmd files.
+
+\item \code{lift_inchunk_label()}: Put in-chunk labels to chunk headers
 
 \item \code{update_script_to_rmd()}: Wrapper of \code{copy_script_to_rmd} for \code{match_chunk = TRUE, update = FALSE}
 

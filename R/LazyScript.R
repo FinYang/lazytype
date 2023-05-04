@@ -92,7 +92,7 @@ read_script <- function(script_path, library = TRUE){
 
 
 
-#' @param rmd_path String. The path to the rmarkdown file. The default is the file currently opened in the Rstudio editor.
+#' @param rmd_path String. The path to the rmarkdown file. The default for \code{copy_script_to_rmd} is the file currently opened in the Rstudio editor.
 #' @param saveAll Logical. Whether save all open file in the editor. If FALSE, unsaved changes may be lost.
 #' @param match_chunk Logical. If TRUE, the function tries to find chunks in the script matching the chunks in the rmd file and
 #' make the copy to the corresponding chunks If FALSE, the chunks are appended to the end of the rmd file.
@@ -181,6 +181,7 @@ remove_rmd_chunk <- function(rmd_path, match_labels = NULL){
   remove_md_chunk(rmd_path, match_labels)
 }
 
+#' @param qmd_path String. The path to the Quarto file.
 #' @describeIn LazyScript Remove code chunk content in qmd files.
 #' @export
 remove_qmd_chunk <- function(qmd_path, match_labels = NULL){
@@ -208,7 +209,59 @@ remove_md_chunk <- function(path, match_labels = NULL){
   return(invisible())
 }
 
+#' @param md_path String. The path to the rmarkdown or quarto file.
+#' @param inchunk_rm Logical. Whether to remove the in-chunk label line once it is moved to the chunk header
+#' @describeIn LazyScript Put in-chunk labels to chunk headers
+#' @export
+lift_inchunk_label <- function(md_path, inchunk_rm = FALSE){
+  if(!gsub("^.*\\.(.*)$", "\\1", md_path) %in% c("qmd", "rmd", "Rmd")) stop("Not Rmarkdown or Quarto file.")
+  lines <- xfun::read_utf8(md_path)
+  lab <- "^```\\{[[:alpha:]]+ ?(.*)\\}$"
+  idx <- cumsum(grepl(lab, lines))
+  groups <- unname(split(lines, idx))
 
+  headers <- stringr::str_trim(gsub(lab, "\\1", sapply(groups, `[`, 1)))
+  labels_header <- gsub(",.*", "", headers)
+
+  names(groups) <- labels_header
+
+  for(lb in seq_along(labels_header)[labels_header != "---"]){
+    endpo <- grep("^```$", groups[[lb]])
+    lbpo <- grep("#\\|.*?label\\s*:", groups[[lb]][2:(endpo-1)]) + 1
+    if(length(lbpo) == 0) next
+
+    label_inchunk_line <- stringr::str_trim(gsub(".*label: ?(.*)", "\\1", groups[[lb]][[lbpo]]))
+    other_inchunk_sameline_opt <- grepl(",.*", label_inchunk_line)
+
+    label_inchunk <- gsub(",.*", "", label_inchunk_line)
+    if(labels_header[[lb]] == ""){
+      header <- groups[[lb]][[1]]
+      other_header_opt <- grepl(",.*", headers[[lb]])
+      groups[[lb]][[1]] <- gsub("^(```\\{[[:alpha:]]+ ?)(.*\\})$",
+                                sprintf("\\1 %s%s\\2",
+                                        label_inchunk,
+                                        ifelse(other_header_opt, ",", "")),
+                                header)
+    } else if(labels_header[[lb]] != label_inchunk) {
+      warning(sprintf("The in-chunk label is %s while the header label is %s. No changes made.",
+                      label_inchunk, labels_header[[lb]]))
+    }
+
+    if(inchunk_rm) {
+      if(other_inchunk_sameline_opt){
+        groups[[lb]][[lbpo]] <- groups[[lb]][[lbpo]] %>%
+          gsub(",?\\s*label\\s*:.*?,\\s*", "", .) %>%
+          gsub(",?\\s*label\\s*:.*\\s*", "", .)
+      } else {
+        groups[[lb]] <- groups[[lb]][-lbpo]
+      }
+    }
+  }
+
+  added <- do.call(base::c, unname(groups))
+  write(added, md_path)
+  return(invisible())
+}
 
 #' @describeIn LazyScript Wrapper of \code{copy_script_to_rmd} for \code{match_chunk = TRUE, update = FALSE}
 #' @export
