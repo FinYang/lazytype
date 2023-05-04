@@ -75,9 +75,9 @@ Note: use \code{print} explicitly in the script to print result in the console.
 \item \code{copy_script_to_rmd()}: Copy the code in the script to the rmarkdown file based on the chunk label (when \code{match_chunk = TRUE}),
 or append the code to the end.
 
-\item \code{remove_rmd_chunk()}: Remove code chunk in rmd files.
+\item \code{remove_rmd_chunk()}: Remove code chunk content in rmd files.
 
-\item \code{remove_qmd_chunk()}: Remove code chunk in qmd files.
+\item \code{remove_qmd_chunk()}: Remove code chunk content in qmd files.
 
 \item \code{update_script_to_rmd()}: Wrapper of \code{copy_script_to_rmd} for \code{match_chunk = TRUE, update = FALSE}
 

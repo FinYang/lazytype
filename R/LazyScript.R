@@ -174,14 +174,14 @@ copy_script_to_rmd <- function(script_path, rmd_path = NULL, saveAll = TRUE, mat
 
 #' @param match_labels Vector of characters. The name of the chunk where contents to be removed.
 #' If NULL, remove contents for all chunks except \code{setup}.
-#' @describeIn LazyScript Remove code chunk in rmd files.
+#' @describeIn LazyScript Remove code chunk content in rmd files.
 #' @export
 remove_rmd_chunk <- function(rmd_path, match_labels = NULL){
   if(!gsub("^.*\\.(.*)$", "\\1", rmd_path) %in% c("rmd", "Rmd")) stop("Not Rmarkdown file.")
   remove_md_chunk(rmd_path, match_labels)
 }
 
-#' @describeIn LazyScript Remove code chunk in qmd files.
+#' @describeIn LazyScript Remove code chunk content in qmd files.
 #' @export
 remove_qmd_chunk <- function(qmd_path, match_labels = NULL){
   if(!gsub("^.*\\.(.*)$", "\\1", qmd_path) %in% c("qmd")) stop("Not Quarto file.")
@@ -190,14 +190,15 @@ remove_qmd_chunk <- function(qmd_path, match_labels = NULL){
 
 remove_md_chunk <- function(path, match_labels = NULL){
   lines <- xfun::read_utf8(path)
-  lab <- "^```\\{r (.*)\\}$"
-
+  lab <- "^```\\{[[:alpha:]]+ ?(.*)\\}$"
   idx <- cumsum(grepl(lab, lines))
   groups <- unname(split(lines, idx))
   labels <- stringr::str_trim(gsub(lab, "\\1", sapply(groups, `[`, 1)))
   labels <- gsub(",.*", "", labels)
   names(groups) <- labels
-  if(is.null(match_labels)) match_labels <- setdiff(labels,c("---", "setup"))
+  if(is.null(match_labels)) {
+    match_labels <- which(!labels %in% c("---", "setup"))
+  }
   for(lb in match_labels){
     endpo <- grep("^```$", groups[[lb]])
     groups[[lb]] <- groups[[lb]][-(2:(endpo-1))]
