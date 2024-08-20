@@ -10,7 +10,7 @@
 #' \url{http://pkg.yangzhuoranyang.com/lazytype/}
 #'
 #'
-#' @docType package
+#' @docType _PACKAGE
 #' @author Yangzhuoran Yang
 ## usethis namespace: start
 #' @importFrom dplyr .data

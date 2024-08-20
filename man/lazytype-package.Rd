@@ -2,7 +2,6 @@
 % Please edit documentation in R/lazytype-package.R
 \docType{package}
 \name{lazytype-package}
-\alias{lazytype}
 \alias{lazytype-package}
 \title{lazytype: Functions and Addins to save keystrokes and clicks}
 \description{
